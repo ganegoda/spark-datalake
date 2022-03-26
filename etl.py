@@ -43,7 +43,7 @@ def process_song_data(spark, input_data, output_data):
     # read song data file
     song_df = spark.read.json(song_data)
 
-    # Chage column type
+    # Change column type
     song_df = (song_df.withColumn('artist_latitude', col('artist_latitude').cast(DoubleType()))
                .withColumn('artist_longitude', col('artist_longitude').cast(DoubleType()))
                )
