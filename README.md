@@ -116,11 +116,13 @@ The ```etl.py``` script implements an ETL pipeline to extract data from s3, load
     ```
     <br />
     - Log in to master node
+
     ```bash 
     ssh -i your_key_file.pem hadoop@ec2-XXX-XXX-XXX-XXX.us-west-2.compute.amazonaws.com
     ```
     <br />
     - Run etl.py script 
+    
     ```bash
     spark-submit --conf spark.dynamicAllocation.enabled=false etl.py
     ```
