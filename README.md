@@ -61,7 +61,7 @@ A single log file contains multiple records of data, each in the format shown be
 ```
 
 ### Staging dataframes
-Two staging dataframes song_df and log_df were used to store raw data read from s3 buckets. Dataframes were then modified to satisfy additional data requirements of final tables.
+Two staging dataframes song_df and log_df were used to store raw data read from S3 buckets. Dataframes were then modified to satisfy additional data requirements of final tables.
 
 1. **song_df** - Stores data from event logs
     - *artist, auth, first_name, gender, items_in_session, last_name, length, level, location, method, page, registration, session_id, song, status, time_stamp, user_agent, user_id*
@@ -93,10 +93,10 @@ Star schema is suitable for this particular use case, which optimizes the song d
 
 
 ## ETL Pipeline
-The ```etl.py``` script implements an ETL pipeline to extract data from s3, load into staging dataframes, transform and write to parquet files in destination s3 bucket. Credentials for s3 bucket access are stored in dl.cfg, which is used by ```etl.py``` for s3 bucket access permissions.
+The ```etl.py``` script implements an ETL pipeline to extract data from s3, load into staging dataframes, transform and write to parquet files in destination s3 bucket. Credentials for S3 bucket access are stored in dl.cfg, which is used by ```etl.py``` for s3 bucket access permissions.
 
 ## How to Load data
-1. Edit the dl.cfg file based on your user credentials for accessing s3 bucket. You may have to open port 22 of the master node for SSH access. 
+1. Edit the dl.cfg file based on your user credentials for accessing S3 bucket. You may have to open port 22 of the master node for SSH access. 
 
     ```bash
     [AWS]
@@ -108,25 +108,27 @@ The ```etl.py``` script implements an ETL pipeline to extract data from s3, load
     <br />
 1. When cluster is ready, execute following commands modified based on your configuration:
    
-    - Copy your files to master node:
+- Copy your files to master node:
     ```bash
     scp -i your_key_file.pem etl.py hadoop@ec2-XXX-XXX-XXX-XXX.us-west-2.compute.amazonaws.com:/home/hadoop/.
     scp -i your_key_file.pem dl.cfg hadoop@ec2-XXX-XXX-XXX-XXX.us-west-2.compute.amazonaws.com:/home/hadoop/.
     
     ```
-    <br />
-    - Log in to master node
+<br />
+
+- Log in to master node
 
     ```bash 
     ssh -i your_key_file.pem hadoop@ec2-XXX-XXX-XXX-XXX.us-west-2.compute.amazonaws.com
     ```
-    <br />
-    - Run etl.py script 
-    
+<br />
+
+- Run etl.py script 
+
     ```bash
     spark-submit --conf spark.dynamicAllocation.enabled=false etl.py
     ```
-    
+
 
 
 
